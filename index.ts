@@ -3,7 +3,7 @@ import client from "./src/index.js"
 // const app = express()
 // const port = 3001
 // console.log(encodeURIComponent("/guide for role/玲可.png"))
-// client.init()
+
 // app.get("/", (req: any, res: { send: (arg0: string) => void }) => {
 //   res.send("Hello World!")
 // })
@@ -33,6 +33,7 @@ export default function handler(
   request: VercelRequest,
   response: VercelResponse
 ) {
+  client.init()
   response.status(200).json({
     body: request.body,
     query: request.query,
