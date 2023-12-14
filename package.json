@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon   ./index.ts",
     "lint": "eslint . --ext .ts",
-    "build": "node index.js"
+    "build": "ts-node index.ts"
   },
   "keywords": [],
   "author": "",
