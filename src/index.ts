@@ -1,5 +1,5 @@
-import { createWebsocket } from "./oauth/ws.ts"
-import { starRailAtlas, starRailRole } from "./main/starRail/starRail.ts"
+import { createWebsocket } from "./oauth/ws.js"
+import { starRailAtlas, starRailRole } from "./main/starRail/starRail.js"
 // export const ws = async () => {
 const wsClient = await createWebsocket()
 // return b

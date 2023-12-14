@@ -1,4 +1,4 @@
-import client from "./src/index.ts"
+import client from "./src/index.js"
 // import express from "express"
 // const app = express()
 // const port = 3001
@@ -26,3 +26,16 @@ client.init()
 //     (1 << 1) |
 //     (1 << 0)
 // )
+
+import type { VercelRequest, VercelResponse } from "@vercel/node"
+
+export default function handler(
+  request: VercelRequest,
+  response: VercelResponse
+) {
+  response.status(200).json({
+    body: request.body,
+    query: request.query,
+    cookies: request.cookies,
+  })
+}

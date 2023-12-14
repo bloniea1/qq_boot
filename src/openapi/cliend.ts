@@ -1,5 +1,5 @@
-import { sendMessageType } from "./messageType.ts"
-import { openapi } from "../oauth/oauth.ts"
+import { sendMessageType } from "./messageType.js"
+import { openapi } from "../oauth/oauth.js"
 export const sendMessageApi = async (
   channel_id: number,
   data: sendMessageType

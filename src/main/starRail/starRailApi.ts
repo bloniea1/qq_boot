@@ -1,4 +1,4 @@
-import { starRailUrl } from "../../config.ts"
+import { starRailUrl } from "../../config.js"
 import axios from "axios"
 interface obj {
   params?: any

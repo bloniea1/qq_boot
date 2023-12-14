@@ -1,6 +1,6 @@
-import { starRailUrl } from "../../config.ts"
-import { sendMessageApi } from "../../openapi/cliend.ts"
-import { getPathApi } from "./starRailApi.ts"
+import { starRailUrl } from "../../config.js"
+import { sendMessageApi } from "../../openapi/cliend.js"
+import { getPathApi } from "./starRailApi.js"
 // import { Wrapper } from "enkanetwork.js"
 export const starRailAtlas = async (data: any) => {
   const urlJson = await getPathApi()

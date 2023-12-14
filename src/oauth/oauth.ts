@@ -1,6 +1,6 @@
 import "dotenv/config"
 import axios from "axios"
-import redis from "./redis.ts"
+import redis from "./redis.js"
 
 // import { client as webClient } from "websocket"
 const auth = async () => {

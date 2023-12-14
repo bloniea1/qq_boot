@@ -1,6 +1,6 @@
-import { getToken, openapi } from "./oauth.ts"
+import { getToken, openapi } from "./oauth.js"
 import WebSocket from "ws"
-import redis from "./redis.ts"
+import redis from "./redis.js"
 
 class WsClient {
   ws!: WebSocket
