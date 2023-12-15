@@ -10,6 +10,7 @@ const app = {
     const wsClient = await createWebsocket()
     wsClient.on("error", console.error)
     wsClient.on("guild_messages", async (data: any) => {
+      // console.log(data)
       Promise.all(fun.map((i) => i(data.d)))
     })
     // wsClient.on("messages", async (data: any) => {})

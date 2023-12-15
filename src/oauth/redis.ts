@@ -40,7 +40,7 @@ const redis = {
   },
 
   async close() {
-    await this.client.quit()
+    await this.client.disconnect()
   },
 }
 export default redis

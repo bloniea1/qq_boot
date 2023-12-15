@@ -1,5 +1,6 @@
 import client from "./src/index.js"
-
+client.init()
+// client.init()
 // import express from "express"
 // const app = express()
 // const port = 3001
@@ -28,29 +29,27 @@ import client from "./src/index.js"
 //     (1 << 0)
 // )
 
-// import type { VercelRequest, VercelResponse } from "@vercel/node"
+import type { VercelRequest, VercelResponse } from "@vercel/node"
 
-// export default function handler(
-//   request: VercelRequest,
-//   response: VercelResponse
-// ) {
-//   client.init()
-//   response.status(200).json({
-//     body: request.body,
-//     query: request.query,
-//     cookies: request.cookies,
-//   })
-// }
-import express from "express"
+export default function handler(
+  request: VercelRequest,
+  response: VercelResponse
+) {
+  response.status(200).json({
+    body: request.body,
+    query: request.query,
+    cookies: request.cookies,
+  })
+}
+// import express from "express"
 
-const app = express()
-const port = 3000
+// const app = express()
+// const port = 3333
 
-app.get("/", (req: any, res: any) => {
-  res.send("Hello World!")
-  client.init()
-})
+// app.get("/", (req: any, res: any) => {
+//   res.send("Hello World!")
+// })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })

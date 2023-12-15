@@ -1,11 +1,12 @@
 import "dotenv/config"
 import axios from "axios"
 import redis from "./redis.js"
+import { oauthUrl, openUrl } from "../config.js"
 
 // import { client as webClient } from "websocket"
 const auth = async () => {
   try {
-    const url = process.env.OAUTH_URL as string
+    const url = oauthUrl as string
     const res = await axios.post(url, {
       appId: process.env.APP_ID,
       clientSecret: process.env.APP_SECRET,
@@ -20,8 +21,12 @@ const auth = async () => {
       await redis.close()
       return res.data.access_token
     }
-  } catch (error) {
-    console.error(error)
+  } catch (error: any) {
+    if (error.response) {
+      console.log(error.response.status)
+      // console.log(error.response.status)
+      // console.log(error.response.headers)
+    }
   }
 }
 
@@ -51,8 +56,8 @@ export const openapi = async (
   obj: obj = {}
 ) => {
   const token: string = await getToken()
-  const src = process.env.OPENAPI_URL as string
-  const appid = process.env.APP_ID as unknown as number
+  const src = openUrl as string
+  const appid = src as unknown as number
   try {
     const { data } = await axios({
       url: src + url,

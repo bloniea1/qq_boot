@@ -127,7 +127,7 @@ class WsClient {
         })
         break
       case "message":
-        this.ws.on("message", async (data) => {
+        this.ws.on("message", async () => {
           // console.log(data.toString())
         })
         break
