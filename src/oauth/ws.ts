@@ -51,7 +51,7 @@ class WsClient {
         await this.mainFun()
       }
     } catch (error: any) {
-      throw new Error(error)
+      console.log(error)
     }
   }
   async mainFun() {
@@ -127,7 +127,7 @@ class WsClient {
         })
         break
       case "message":
-        this.ws.on("message", async () => {
+        this.ws.on("message", async (data) => {
           // console.log(data.toString())
         })
         break

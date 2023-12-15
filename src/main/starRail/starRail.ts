@@ -3,6 +3,7 @@ import { sendMessageApi } from "../../openapi/cliend.js"
 import { getPathApi } from "./starRailApi.js"
 // import { Wrapper } from "enkanetwork.js"
 export const starRailAtlas = async (data: any) => {
+  console.log(data.content)
   const urlJson = await getPathApi()
   if (
     urlJson &&
@@ -39,6 +40,7 @@ export const starRailAtlas = async (data: any) => {
       const dataRV = {
         image: `${starRailUrl}/${encodeURIComponent(objJson[c])}`,
       }
+      // console.log(dataRV)
       await sendMessageApi(data.channel_id, dataRV)
     }
   }
