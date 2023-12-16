@@ -172,7 +172,7 @@ class WsClient {
             seq: this.t,
           },
         }
-        console.log(myGlobal.session_id)
+        console.log(payload)
         this.ws.send(JSON.stringify(payload))
         await this.mainFun()
       } else {
