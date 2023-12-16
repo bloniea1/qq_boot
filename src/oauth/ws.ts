@@ -1,6 +1,6 @@
 import { getToken, openapi } from "./oauth.js"
 import WebSocket from "ws"
-import redis from "./redis.js"
+import { myGlobal } from "../config.js"
 
 class WsClient {
   ws!: WebSocket
@@ -8,7 +8,7 @@ class WsClient {
   timer!: NodeJS.Timeout
   s: number | null = null
   reN: number = 0
-  reTime: number = 500
+  reTime: number = 200
   t: number =
     0 |
     (1 << 30) |
@@ -54,15 +54,19 @@ class WsClient {
       console.log(error)
     }
   }
+  // 主要监听
   async mainFun() {
     this.ws.on("message", async (data) => {
       try {
         const d = JSON.parse(data.toString())
         // console.log(d)
         if (d.t === "READY") {
-          await redis.connect()
-          await redis.set("qq_boot_session_id", d.d.session_id, 7200)
-          await redis.close()
+          // await redis.connect()
+          // await redis.set("qq_boot_session_id", d.d.session_id)
+          // await redis.close()
+
+          //  = d.d.session_id
+          myGlobal.session_id = d.d.session_id
           console.log("鉴权通过")
           console.log(`发送第一次心跳 {op:1,d:null}`)
           const xt = JSON.stringify({ op: 1, d: this.s })
@@ -78,12 +82,12 @@ class WsClient {
         if (d.op === 11) {
           console.log("心跳成功")
 
-          clearTimeout(this.timer)
-          this.timer = setTimeout(() => {
-            console.log(`心跳校验{'op':1,d:${this.s}}`)
-            this.ws.send(JSON.stringify({ op: 1, d: this.s }))
-            clearTimeout(this.timer)
-          }, this.time)
+          // clearTimeout(this.timer)
+          // this.timer = setTimeout(() => {
+          //   console.log(`心跳校验{'op':1,d:${this.s}}`)
+          //   this.ws.send(JSON.stringify({ op: 1, d: this.s }))
+          //   clearTimeout(this.timer)
+          // }, this.time)
         }
 
         if (d.d.content == 5) {
@@ -144,15 +148,19 @@ class WsClient {
         break
     }
   }
+  // 重连
   async reconnect() {
     try {
       const res = await openapi("/gateway")
 
       if (res.url) {
+        if (!myGlobal.session_id || myGlobal.session_id === "undefined") {
+          return this.create()
+        }
         this.ws = new WebSocket(res.url)
-        await redis.connect()
-        const session_id = await redis.get("qq_boot_session_id")
-        await redis.close()
+        // await redis.connect()
+        // const session_id = await redis.get("qq_boot_session_id")
+        // await redis.close()
 
         const token: string = await getToken()
         // console.log(session_id, token)
@@ -160,13 +168,15 @@ class WsClient {
           op: 6,
           d: {
             token: `QQBot ${token}`,
-            session_id: session_id,
+            session_id: myGlobal.session_id,
             seq: this.t,
           },
         }
-        // console.log(JSON.stringify(payload))
+        console.log(myGlobal.session_id)
         this.ws.send(JSON.stringify(payload))
         await this.mainFun()
+      } else {
+        this.reconnect()
       }
     } catch (err) {
       console.error(err)

@@ -73,7 +73,7 @@ export const openapi = async (
     // console.log(data)
     return data
   } catch (error: any) {
-    console.log(error)
+    // console.log(error)
     if (error.response) {
       console.log(error.response.data)
       // console.log(error.response.status)
