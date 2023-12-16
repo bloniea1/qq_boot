@@ -59,7 +59,7 @@ class WsClient {
     this.ws.on("message", async (data) => {
       try {
         const d = JSON.parse(data.toString())
-        // console.log(d)
+        console.log(d)
         if (d.t === "READY") {
           // await redis.connect()
           // await redis.set("qq_boot_session_id", d.d.session_id)
