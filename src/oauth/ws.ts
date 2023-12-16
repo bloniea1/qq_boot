@@ -28,6 +28,7 @@ class WsClient {
       const res = await openapi("/gateway")
       if (res.url) {
         this.ws = new WebSocket(res.url)
+        console.log(this.ws)
         this.ws.on("open", async () => {
           console.log("open")
           console.log("ws 开启")
@@ -181,7 +182,7 @@ class WsClient {
         this.reconnect()
       }
     } catch (err) {
-      console.error(err)
+      console.log(err)
     }
   }
 }
