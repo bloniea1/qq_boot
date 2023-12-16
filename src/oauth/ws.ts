@@ -157,6 +157,7 @@ class WsClient {
         if (!myGlobal.session_id || myGlobal.session_id === "undefined") {
           return this.create()
         }
+        console.log(res.url)
         this.ws = new WebSocket(res.url)
         // await redis.connect()
         // const session_id = await redis.get("qq_boot_session_id")
