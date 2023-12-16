@@ -159,6 +159,7 @@ class WsClient {
         }
         console.log(res.url)
         this.ws = new WebSocket(res.url)
+        console.log(this.ws)
         // await redis.connect()
         // const session_id = await redis.get("qq_boot_session_id")
         // await redis.close()
